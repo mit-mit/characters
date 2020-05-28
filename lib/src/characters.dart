@@ -79,13 +79,13 @@ abstract class Characters implements Iterable<String> {
   /// Returns a [CharacterRange] containing the first occurrence of
   /// [characters] in this string.
   /// Returns `null` if there is no such occurrence.
-  CharacterRange /*?*/ findFirst(Characters characters);
+  CharacterRange? findFirst(Characters characters);
 
   /// Finds the last occurrence of [characters].
   ///
   /// Returns a [CharacterRange] containing the last occurrence of
   /// [characters]. Returns `null` if there is no such occurrence,
-  CharacterRange /*?*/ findLast(Characters characters);
+  CharacterRange? findLast(Characters characters);
 
   /// Eagerly selects a subset of the characters.
   ///
@@ -218,7 +218,7 @@ abstract class Characters implements Iterable<String> {
   /// then the characters are split at all occurrences.
   /// If [maxParts] is zero or negative, it is ignored and the result
   /// is split at all occurrences of [pattern].
-  Iterable<Characters> split(Characters pattern, [int maxParts = 0]);
+  Iterable<Characters>? split(Characters pattern, [int maxParts = 0]);
 
   /// Replaces the first occurrence of [pattern] with [replacement].
   ///
@@ -679,7 +679,7 @@ abstract class CharacterRange implements Iterator<String> {
   ///
   /// Returns `null` if there are no occurrences of [pattern]
   /// in the current range.
-  CharacterRange /*?*/ replaceAll(Characters pattern, Characters replacement);
+  CharacterRange? replaceAll(Characters pattern, Characters replacement);
 
   /// Splits the current range of characters at each occurrence of [pattern].
   ///
@@ -718,7 +718,7 @@ abstract class CharacterRange implements Iterator<String> {
   /// then the characters are split at all occurrences.
   /// If [maxParts] is zero or negative, it is ignored and the result
   /// is split at all occurrences of [pattern].
-  Iterable<CharacterRange> split(Characters pattern, [int maxParts = 0]);
+  Iterable<CharacterRange>? split(Characters pattern, [int maxParts = 0]);
 
   /// Replaces the first occurrence of [pattern] with [replacement].
   ///
@@ -737,7 +737,7 @@ abstract class CharacterRange implements Iterator<String> {
   ///
   /// Returns `null` if there are no occurrences of [pattern]
   /// in the current range.
-  CharacterRange /*?*/ replaceFirst(Characters pattern, Characters replacement);
+  CharacterRange? replaceFirst(Characters pattern, Characters replacement);
 
   /// Whether the current range starts with [characters].
   ///

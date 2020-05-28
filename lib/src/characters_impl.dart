@@ -71,7 +71,7 @@ class StringCharacters extends Iterable<String> implements Characters {
   Iterable<T> whereType<T>() {
     Iterable<Object> self = this;
     if (self is Iterable<T>) {
-      return self.map<T>((x) => x);
+      return self.map<T>(((x) => x) as T Function(Object));
     }
     return Iterable<T>.empty();
   }
@@ -83,7 +83,7 @@ class StringCharacters extends Iterable<String> implements Characters {
   }
 
   @override
-  String lastWhere(bool test(String element), {String orElse()}) {
+  String lastWhere(bool test(String element), {String orElse()?}) {
     int cursor = string.length;
     var brk = BackBreaks(string, cursor, 0, stateEoTNoBreak);
     int next = 0;
@@ -114,7 +114,7 @@ class StringCharacters extends Iterable<String> implements Characters {
   }
 
   @override
-  bool contains(Object other) {
+  bool contains(Object? other) {
     if (other is String) {
       if (other.isEmpty) return false;
       int next = Breaks(other, 0, other.length, stateSoTNoBreak).nextBreak();
@@ -155,7 +155,7 @@ class StringCharacters extends Iterable<String> implements Characters {
       _rangeAll.replaceFirst(pattern, replacement)?.source ?? this;
 
   @override
-  Iterable<Characters> split(Characters pattern, [int maxParts = 0]) sync* {
+  Iterable<Characters>? split(Characters pattern, [int maxParts = 0]) sync* {
     if (maxParts == 1 || string.isEmpty) {
       yield this;
       return;
@@ -375,14 +375,14 @@ class StringCharacters extends Iterable<String> implements Characters {
   String toString() => string;
 
   @override
-  CharacterRange findFirst(Characters characters) {
+  CharacterRange? findFirst(Characters characters) {
     var range = _rangeAll;
     if (range.collapseToFirst(characters)) return range;
     return null;
   }
 
   @override
-  CharacterRange findLast(Characters characters) {
+  CharacterRange? findLast(Characters characters) {
     var range = _rangeAll;
     if (range.collapseToLast(characters)) return range;
     return null;
@@ -408,7 +408,7 @@ class StringCharacterRange implements CharacterRange {
 
   /// The [current] value is created lazily and cached to avoid repeated
   /// or unnecessary string allocation.
-  String _currentCache;
+  String? _currentCache;
 
   StringCharacterRange(String string) : this._(string, 0, 0);
   StringCharacterRange._(this._string, this._start, this._end);
@@ -778,7 +778,7 @@ class StringCharacterRange implements CharacterRange {
   }
 
   @override
-  CharacterRange /*?*/ replaceFirst(
+  CharacterRange? replaceFirst(
       Characters pattern, Characters replacement) {
     String patternString = pattern.string;
     String replacementString = replacement.string;
@@ -799,7 +799,7 @@ class StringCharacterRange implements CharacterRange {
   }
 
   @override
-  CharacterRange /*?*/ replaceAll(Characters pattern, Characters replacement) {
+  CharacterRange? replaceAll(Characters pattern, Characters replacement) {
     var patternString = pattern.string;
     var replacementString = replacement.string;
     if (patternString.isEmpty) {
@@ -811,7 +811,7 @@ class StringCharacterRange implements CharacterRange {
     if (_start == _end) return null;
     int start = 0;
     int cursor = _start;
-    StringBuffer buffer;
+    StringBuffer? buffer;
     while ((cursor = _indexOf(_string, patternString, cursor, _end)) >= 0) {
       (buffer ??= StringBuffer())
         ..write(_string.substring(start, cursor))
@@ -929,7 +929,7 @@ class StringCharacterRange implements CharacterRange {
   String get stringBefore => _string.substring(0, _start);
 
   @override
-  Iterable<CharacterRange> split(Characters pattern, [int maxParts = 0]) sync* {
+  Iterable<CharacterRange>? split(Characters pattern, [int maxParts = 0]) sync* {
     if (maxParts == 1 || _start == _end) {
       yield this;
       return;
